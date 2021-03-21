@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-21 15:15:58
- * @LastEditTime: 2021-03-21 16:51:34
+ * @LastEditTime: 2021-03-21 17:03:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \toy-react\toy-react.js
@@ -46,7 +46,7 @@ export class Component {
 
 export function createElement (type, attributes, ...children) {
   let e;
-  if (typeof type === 'string') {
+  if (typeof type === "string") {
     e = new ElementWrapper(type);
   } else {
     e = new type;
@@ -57,10 +57,10 @@ export function createElement (type, attributes, ...children) {
   }
   let insertChildren = (children) => {
     for (let child of children) {
-      if (typeof child === 'string') {
+      if (typeof child === "string") {
         child = new TextWrapper(child);
       }
-      if ((typeof child === 'object') && (child instanceof Array)) {
+      if ((typeof child === "object") && (child instanceof Array)) {
         insertChildren(child);
       } else {
         e.appendChild(child);
