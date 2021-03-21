@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-21 15:15:58
- * @LastEditTime: 2021-03-21 15:34:05
+ * @LastEditTime: 2021-03-21 15:59:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \toy-react\toy-react.js
@@ -18,15 +18,12 @@ class ElementWrapper {
   }
 }
 class TextWrapper {
-  constructor(conent) {
+  constructor(content) {
     this.root = document.createTextNode(content)
-  }
-  appendChild () {
-
   }
 }
 
-class Component {
+export class Component {
   constructor() {
     this.props = Object.create(null);
     this.children = [];
@@ -35,7 +32,7 @@ class Component {
   setAttribute (name, value) {
     this.props[name] = value;
   }
-  appendChild () {
+  appendChild (component) {
     this.children.push(component);
   }
   get root () {
@@ -50,7 +47,7 @@ class Component {
 export function createElement (type, attributes, ...children) {
   let e;
   if (typeof type === 'string') {
-    e = document.createElement(type);
+    e = new ElementWrapper(type);
   } else {
     e = new type;
   }
@@ -60,7 +57,7 @@ export function createElement (type, attributes, ...children) {
   }
   for (let child of children) {
     if (typeof child === 'string') {
-      child = document.createTextNode(child);
+      child = new TextWrapper(child);
     }
     e.appendChild(child);
   }
@@ -68,5 +65,5 @@ export function createElement (type, attributes, ...children) {
 }
 
 export function render (component, parentElement) {
-
+  parentElement.appendChild(component.root);
 }
