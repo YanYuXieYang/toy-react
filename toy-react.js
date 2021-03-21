@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-21 15:15:58
- * @LastEditTime: 2021-03-21 15:59:10
+ * @LastEditTime: 2021-03-21 16:51:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \toy-react\toy-react.js
@@ -55,15 +55,22 @@ export function createElement (type, attributes, ...children) {
   for (let p in attributes) {
     e.setAttribute(p, attributes[p]);
   }
-  for (let child of children) {
-    if (typeof child === 'string') {
-      child = new TextWrapper(child);
+  let insertChildren = (children) => {
+    for (let child of children) {
+      if (typeof child === 'string') {
+        child = new TextWrapper(child);
+      }
+      if ((typeof child === 'object') && (child instanceof Array)) {
+        insertChildren(child);
+      } else {
+        e.appendChild(child);
+      }
     }
-    e.appendChild(child);
   }
+  insertChildren(children);
   return e;
 }
 
 export function render (component, parentElement) {
-  parentElement.appendChild(component.root);
+  parentElement.appendChild(component.root);// 成功执行过一次。后来还是报错
 }
